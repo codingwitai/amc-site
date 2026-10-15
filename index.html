@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arctic Morning Computing — Remote PC Diagnostics &amp; Repair</title>
+<meta name="description" content="Arctic Morning Computing fixes slow, failing and unstable Windows PCs completely remotely. Scored hardware health reports, exact step-by-step fix plans, and honest advice — no shop visit, no drop-off, no parts.">
+<meta name="theme-color" content="#0b1a2b">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Arctic Morning Computing — Remote PC Diagnostics &amp; Repair">
+<meta property="og:description" content="Your PC, diagnosed properly. Remote-only Windows diagnostics: scored hardware reports and exact click-by-click fix plans.">
+<meta property="og:type" content="website">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#10052;</text></svg>">
+
+<style>
+  :root{
+    --ink:#0b1a2b;
+    --ink-soft:#20344a;
+    --body:#3b4c60;
+    --line:#dbe3ec;
+    --bg:#f7f9fc;
+    --card:#ffffff;
+    --accent:#0f6ea8;
+    --accent-dark:#0a5480;
+    --ice:#e8f2fa;
+    --good:#1a7f5a;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(11,26,43,.06), 0 8px 24px rgba(11,26,43,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--body);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  h1,h2,h3{color:var(--ink);line-height:1.2;margin:0 0 .5em}
+  h1{font-size:clamp(1.9rem,4.4vw,2.9rem);letter-spacing:-.02em}
+  h2{font-size:clamp(1.35rem,2.6vw,1.8rem);letter-spacing:-.01em;margin-top:0}
+  h3{font-size:1.06rem;margin-bottom:.35em}
+  p{margin:0 0 1em}
+  a{color:var(--accent)}
+  .muted{color:#6b7c90;font-size:.93rem}
+
+  /* ---------- header ---------- */
+  header{
+    background:linear-gradient(160deg,#0b1a2b 0%,#123047 55%,#1b4a68 100%);
+    color:#fff;
+    padding:26px 0 70px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";position:absolute;inset:auto -10% -60px -10%;height:120px;
+    background:var(--bg);border-radius:50% 50% 0 0;
+  }
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:52px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;color:#fff;letter-spacing:-.01em;font-size:1.06rem}
+  .brand .mark{
+    width:34px;height:34px;flex:0 0 34px;border-radius:9px;
+    background:rgba(255,255,255,.13);
+    border:1px solid rgba(255,255,255,.22);
+    display:grid;place-items:center;font-size:17px;
+  }
+  .navlinks{display:flex;gap:20px;flex-wrap:wrap;font-size:.93rem}
+  .navlinks a{color:#cfe2f0;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px}
+  .navlinks a:hover{color:#fff;border-bottom-color:rgba(255,255,255,.5)}
+  header h1{color:#fff;max-width:19ch}
+  header .lede{color:#c9dced;font-size:1.08rem;max-width:56ch;margin-bottom:1.4em}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .btn{
+    display:inline-block;padding:12px 20px;border-radius:10px;
+    font-weight:650;text-decoration:none;font-size:.97rem;
+    border:1px solid transparent;transition:transform .08s ease, background .15s ease;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:#fff;color:var(--ink)}
+  .btn-primary:hover{background:var(--ice)}
+  .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4)}
+  .btn-ghost:hover{background:rgba(255,255,255,.1)}
+
+  /* ---------- sections ---------- */
+  section{padding:54px 0}
+  section.tight{padding:34px 0}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:26px;
+  }
+  .grid{display:grid;gap:18px}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+
+  /* ---------- pricing ---------- */
+  .tiers{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .tier{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;display:flex;flex-direction:column;box-shadow:var(--shadow);
+  }
+  .tier.featured{border:2px solid var(--accent);position:relative}
+  .tier .flag{
+    position:absolute;top:-11px;left:22px;background:var(--accent);color:#fff;
+    font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    padding:3px 10px;border-radius:20px;
+  }
+  .price{font-size:2.05rem;font-weight:750;color:var(--ink);letter-spacing:-.02em;margin:.1em 0 .1em}
+  .price span{font-size:.9rem;font-weight:500;color:#6b7c90;letter-spacing:0}
+  .tier ul{list-style:none;padding:0;margin:.6em 0 1.3em;font-size:.94rem}
+  .tier li{padding-left:20px;position:relative;margin-bottom:.5em}
+  .tier li::before{content:"✓";position:absolute;left:0;color:var(--good);font-weight:700}
+  .tier .btn{margin-top:auto;text-align:center;background:var(--accent);color:#fff}
+  .tier .btn:hover{background:var(--accent-dark)}
+  .tier.featured .btn{background:var(--accent)}
+  .tier .btn.alt{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+  .tier .btn.alt:hover{background:var(--ice)}
+
+  /* ---------- honesty block ---------- */
+  .honest{background:var(--ink);color:#d5e3ef;border-radius:var(--radius);padding:30px}
+  .honest h2{color:#fff}
+  .honest ul{margin:0;padding-left:20px}
+  .honest li{margin-bottom:.6em}
+  .honest strong{color:#fff}
+
+  /* ---------- steps ---------- */
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+  ol.steps li{counter-increment:s;position:relative;padding-left:52px;margin-bottom:22px}
+  ol.steps li::before{
+    content:counter(s);position:absolute;left:0;top:0;
+    width:34px;height:34px;border-radius:50%;background:var(--ice);color:var(--accent-dark);
+    display:grid;place-items:center;font-weight:700;font-size:.95rem;
+  }
+
+  /* ---------- faq ---------- */
+  details{
+    background:var(--card);border:1px solid var(--line);border-radius:11px;
+    padding:15px 18px;margin-bottom:10px;
+  }
+  details[open]{box-shadow:var(--shadow)}
+  summary{cursor:pointer;font-weight:650;color:var(--ink);list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";float:right;color:var(--accent);font-weight:700}
+  details[open] summary::after{content:"–"}
+  details p{margin:.8em 0 0;font-size:.95rem}
+
+  /* ---------- footer ---------- */
+  footer{background:#0b1a2b;color:#93a9bd;padding:44px 0 34px;font-size:.92rem}
+  footer a{color:#bcd6e8}
+  footer h3{color:#fff;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.7em}
+  .fgrid{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:28px}
+  .legal{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;font-size:.85rem;color:#7c93a8}
+
+  @media (max-width:560px){
+    header{padding-bottom:56px}
+    .topbar{margin-bottom:34px}
+    section{padding:40px 0}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand"><span class="mark">❄</span> Arctic Morning Computing</div>
+      <nav class="navlinks">
+        <a href="#services">Services</a>
+        <a href="#how">How it works</a>
+        <a href="#honest">What we won't do</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+
+    <h1>Your PC is slow, or failing. We find out exactly why.</h1>
+    <p class="lede">
+      Arctic Morning Computing diagnoses and fixes Windows PCs <strong style="color:#fff">completely remotely</strong>.
+      You get a scored health report on every part of your machine and an exact, click-by-click plan to fix it.
+      No drop-off. No shop visit. No parts to buy from us.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#services">See services &amp; pricing</a>
+      <a class="btn btn-ghost" href="#free">Get a free first look</a>
+    </div>
+    <p class="muted" style="color:#9fb8cd;margin-top:18px">
+      Anchorage, Alaska · serving customers anywhere over the internet
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ FREE FIRST LOOK ============ -->
+  <section class="tight" id="free">
+    <div class="wrap">
+      <div class="card" style="border-left:4px solid var(--accent)">
+        <h2 style="margin-bottom:.4em">Start with a free first look</h2>
+        <p style="margin-bottom:1.1em">
+          Tell us three things — your CPU, how much RAM you have, and what's actually going wrong — and we'll tell you
+          honestly what's likely the problem, whether it's a cheap fix or a dying drive, and what it should cost.
+          No charge, no obligation, no pitch.
+        </p>
+        <a class="btn" style="background:var(--accent);color:#fff" href="mailto:hello@arcticmorningcomputing.com?subject=Free%20first%20look&body=CPU%3A%20%0ARAM%3A%20%0AWhat%27s%20slow%20or%20failing%3A%20%0AWhat%20I%27ve%20already%20tried%3A%20">Email us your specs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services">
+    <div class="wrap">
+      <h2>Services &amp; pricing</h2>
+      <p class="muted" style="max-width:62ch;margin-bottom:26px">
+        Payment is by card, invoiced up front. Work begins when payment clears. There are no hidden bench fees —
+        there is no bench.
+      </p>
+
+      <div class="tiers">
+        <div class="tier">
+          <h3>Remote Speed Boost / Tune-Up</h3>
+          <div class="price">$99</div>
+          <p class="muted" style="font-size:.9rem;margin-bottom:1em">60–90 minute live session</p>
+          <ul>
+            <li>Full hardware &amp; software scan</li>
+            <li>Malware and junk removal</li>
+            <li>Startup cleanup</li>
+            <li>Driver recommendations</li>
+            <li>Scored health report</li>
+          </ul>
+          <a class="btn alt" href="https://buy.stripe.com/test_9B66oH5oNgXRdI53mKgnK01">Book the tune-up</a>
+        </div>
+
+        <div class="tier featured">
+          <span class="flag">Most thorough</span>
+          <h3>Full Remote Diagnostic Report</h3>
+          <div class="price">$149</div>
+          <p class="muted" style="font-size:.9rem;margin-bottom:1em">2–3 hours, mostly unattended</p>
+          <ul>
+            <li>Everything in the tune-up</li>
+            <li>Complete hardware health test — RAM, CPU, GPU, motherboard, storage</li>
+            <li>Scored written report with the evidence behind each score</li>
+            <li>Plain-English repair recommendation</li>
+            <li>Step-by-step action plan</li>
+          </ul>
+          <a class="btn" href="https://buy.stripe.com/test_28E8wP04tazt33r0aygnK00">Get the full report</a>
+        </div>
+
+        <div class="tier">
+          <h3>Diagnostic Report Only</h3>
+          <div class="price">$75</div>
+          <p class="muted" style="font-size:.9rem;margin-bottom:1em">24-hour turnaround, no session</p>
+          <ul>
+            <li>You run our read-only scanner</li>
+            <li>About 10 minutes, changes nothing</li>
+            <li>Send us the log</li>
+            <li>Scored report + action plan back within 24 hours</li>
+            <li>No scheduling required</li>
+          </ul>
+          <a class="btn alt" href="https://buy.stripe.com/test_fZu14n4kJgXRcE13mKgnK02">Order the report</a>
+        </div>
+      </div>
+
+      <div class="grid g2" style="margin-top:18px">
+        <div class="card">
+          <h3>Remote Repair / Cleanup — $95/hr</h3>
+          <p style="margin:0">
+            The fix itself over a remote session: Windows repair, virus removal, file corruption, configuration,
+            or moving your data to your own cloud account. Quoted per job before any work starts.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Monthly Care Plan — $99/mo</h3>
+          <p style="margin:0 0 1em">
+            Up to four machines: a monthly remote check-up, driver and health review, and on-call support when
+            something breaks. Cancel anytime.
+          </p>
+          <a class="btn" style="background:var(--accent);color:#fff;padding:9px 16px;font-size:.9rem" href="https://buy.stripe.com/test_00w4gzbNb9vpfQd8H4gnK03">Start the care plan</a>
+        </div>
+      </div>
+
+      <p class="muted" style="margin-top:20px">
+        Small-business IT retainer — remote monitoring, priority support and a monthly written health summary,
+        <strong>$199/mo</strong>. <a href="mailto:hello@arcticmorningcomputing.com?subject=Small-business%20retainer">Ask about it</a>.
+        Rush 24-hour turnaround <strong>+$40</strong>. Cloud data backup <strong>$49</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section id="how">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="muted" style="max-width:60ch;margin-bottom:26px">
+        Everything happens over the internet. You never leave your chair, and we never touch your machine.
+      </p>
+      <ol class="steps">
+        <li>
+          <h3>You describe the problem</h3>
+          <p>Email us your basic specs and what's going wrong. We reply with an honest recommendation and a price —
+          including "this isn't worth fixing", if that's the truth.</p>
+        </li>
+        <li>
+          <h3>You pay by card</h3>
+          <p>We send a secure payment link. The work is delivered over the internet and can't be returned, so payment
+          comes first — then we schedule, usually within the hour.</p>
+        </li>
+        <li>
+          <h3>We scan and test</h3>
+          <p>Either we connect to your PC in a live remote session you watch, or you run our read-only scanner
+          yourself and send us the log. It changes nothing on your machine unless you say so.</p>
+        </li>
+        <li>
+          <h3>You get the report and the plan</h3>
+          <p>Every subsystem scored 0–100 with the evidence behind each score, plus a numbered action plan where every
+          step names the exact click path, what you should see, and how to undo it.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ HONESTY ============ -->
+  <section id="honest">
+    <div class="wrap">
+      <div class="honest">
+        <h2>What we will not do — and why that's the point</h2>
+        <ul>
+          <li><strong>We won't pretend to test your power supply.</strong> No software can honestly test a PSU. We report
+          the rail voltages, the voltage sag under load, and the power-loss events in your system log — then tell you
+          who can actually test it. Anyone who claims otherwise is selling you something.</li>
+          <li><strong>We won't silently update your drivers.</strong> Automatic driver updates are the fastest way to
+          break a working PC. We report what you have, what's current, and link you to the official vendor page.</li>
+          <li><strong>We won't sell you parts.</strong> If you need hardware, we tell you exactly what to buy and you
+          buy it from whoever is cheapest. We have no reason to recommend one over another.</li>
+          <li><strong>We won't fix hardware over the internet.</strong> If the fault is a failed power supply, a swollen
+          battery or a dead motherboard, we show you the evidence in the report and point you to a local shop with that
+          report in hand. Our deliverable is the knowledge, not the screwdriver.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq">
+    <div class="wrap">
+      <h2>Questions</h2>
+
+      <details open>
+        <summary>Do I have to bring my computer somewhere?</summary>
+        <p>No. That's the whole idea. Arctic Morning Computing is a remote-only service — there is no shop, no counter
+        and no drop-off. Everything is done over the internet, so you can be in Anchorage, anywhere else in Alaska, or
+        anywhere in the world.</p>
+      </details>
+
+      <details>
+        <summary>Is it safe to let you scan my machine?</summary>
+        <p>The scanner is <strong>read-only</strong>. It changes nothing, installs nothing and sends nothing anywhere
+        without your say-so. In a live session you watch everything on your own screen, and you can end the session at
+        any moment.</p>
+      </details>
+
+      <details>
+        <summary>Can you fix a slow computer without touching it?</summary>
+        <p>Usually, yes. Most slowness is software — startup bloat, malware, a failing drive, an old driver, a
+        power setting, a full disk, or thermal throttling from dust. All of that is diagnosable and most of it is
+        fixable remotely. When the cause is hardware, we tell you plainly and point you to who can help.</p>
+      </details>
+
+      <details>
+        <summary>What do I actually receive?</summary>
+        <p>Three things: a <strong>scored report</strong> on every subsystem with the raw evidence behind each score,
+        a <strong>numbered action plan</strong> where each step names the exact click path, what you should see and how
+        to undo it, and a <strong>plain-English verdict</strong> on whether the machine is worth repairing or replacing.</p>
+      </details>
+
+      <details>
+        <summary>What if my problem can't be fixed remotely?</summary>
+        <p>Then you still get your money's worth: a written diagnosis with evidence, an exact list of what's wrong,
+        and a clear recommendation on the repair or replacement. For hardware faults we point you to a local shop with
+        the report in hand so nobody can tell you it's something it isn't.</p>
+      </details>
+
+      <details>
+        <summary>How do I pay?</summary>
+        <p>By card, through a secure Stripe checkout. You get an emailed receipt and invoice for every job. We don't
+        take cash, and we don't take payment through Cash App, Venmo or Zelle — every job goes through an invoice so
+        you have a proper record.</p>
+      </details>
+
+      <details>
+        <summary>Where are you based?</summary>
+        <p>Anchorage, Alaska. The business is 100% remote by design, so location doesn't limit who we can help — only
+        the time zone does, and we work around that.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="tight">
+    <div class="wrap">
+      <div class="card" style="text-align:center">
+        <h2 style="margin-bottom:.3em">Not sure which service you need?</h2>
+        <p class="muted" style="max-width:52ch;margin:0 auto 1.4em">
+          Send us your specs and a one-line description of the problem. We'll tell you exactly what we'd do and
+          what it would cost — free.
+        </p>
+        <a class="btn" style="background:var(--accent);color:#fff" href="mailto:hello@arcticmorningcomputing.com">hello@arcticmorningcomputing.com</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h3>Arctic Morning Computing</h3>
+        <p style="margin:0">
+          Remote PC diagnostics, repair and honest advice.<br>
+          Anchorage, Alaska — serving customers worldwide over the internet.
+        </p>
+      </div>
+      <div>
+        <h3>Services</h3>
+        <p style="margin:0">
+          Remote Speed Boost / Tune-Up — $99<br>
+          Full Remote Diagnostic Report — $149<br>
+          Diagnostic Report Only — $75<br>
+          Remote Repair / Cleanup — $95/hr<br>
+          Monthly Care Plan — $99/mo
+        </p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p style="margin:0">
+          <a href="mailto:hello@arcticmorningcomputing.com">hello@arcticmorningcomputing.com</a><br>
+          Replies within one business day.<br>
+          Remote sessions by appointment.
+        </p>
+      </div>
+    </div>
+    <div class="legal">
+      <p style="margin:0 0 .6em">
+        <strong style="color:#bcd6e8">Payment and statement information:</strong> charges appear on your card
+        statement as <strong style="color:#bcd6e8">ARCTIC MORNING</strong>. All payments are processed securely by
+        Stripe. Payment is collected before work begins.
+      </p>
+      <p style="margin:0 0 .6em">
+        We are a remote-only service. We do not sell hardware, we do not perform physical repairs, and we do not
+        accept machines for drop-off. Hardware faults are diagnosed and reported, with a referral to a local
+        technician where physical work is required.
+      </p>
+      <p style="margin:0">
+        © <span id="yr">2026</span> Arctic Morning Computing. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
